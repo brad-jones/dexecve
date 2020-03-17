@@ -1,0 +1,25 @@
+plugins:
+  # Determine the type of release by analyzing commits.
+  # ie: Major, Minor or Patch
+  - "@semantic-release/commit-analyzer"
+
+  # Generate CHANGELOG.md
+  - "@semantic-release/release-notes-generator"
+  - "@semantic-release/changelog"
+
+  # Build the release artifacts
+  # This includes tarballs, rpms/debs, docker images, etc
+  - - "@semantic-release/exec"
+    - prepareCmd: "dart ./Makefile.dart release-prepare --next-version ${nextRelease.version}"
+
+  # Commit CHANGELOG.md back to repo
+  - - "@semantic-release/git"
+    - assets: [CHANGELOG.md]
+      message: "chore(release): update changelog [skip ci]"
+
+  # Create new github release
+  - - "@semantic-release/github"
+
+  # Run final publish tasks, such as docker push
+  - - "@semantic-release/exec"
+    - publishCmd: "dart ./Makefile.dart release-publish --next-version ${nextRelease.version}"

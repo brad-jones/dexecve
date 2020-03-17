@@ -1,0 +1,9 @@
+name: cancel-redundant
+description: "Cancels redundant workflows, ie: all previous workflows for the same branch or PR"
+runs:
+  using: node12
+  main: ./dist/main.js
+inputs:
+  token:
+    description: The GITHUB_TOKEN secret of this github workflow
+    required: true

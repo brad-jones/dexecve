@@ -1,0 +1,12 @@
+# dartlang pub publish ignore rules
+.*
+!lib/src/*.h
+!lib/src/*.so
+!lib/src/*.dll
+!lib/src/*.dylib
+analysis_options.yaml
+go.mod
+Makefile.dart
+package.json
+pnpm*.yaml
+pubspec.lock

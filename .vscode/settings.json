@@ -1,0 +1,66 @@
+{
+	// There may be a few exceptions to the rule but all text files in this
+	// repo should use line feeds and nothing else.
+	"files.eol": "\n",
+	//
+	// Maintain code style and quality by formatting after every save.
+	"editor.formatOnSave": true,
+	"editor.formatOnPaste": false,
+	//
+	// Prettier is a a code style / anti-bikeshedding tool from the javascript
+	// world, it also handles files, like XML/YAML/JSON. Make sure it enables
+	// it's self in the presense of a ".prettierrc.yml" file.
+	//
+	// see: https://prettier.io/
+	"prettier.requireConfig": true,
+	"[json]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[yaml]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	//
+	// Make sure gopls is configured appropriately
+	// see: https://github.com/golang/tools/blob/master/gopls/doc/vscode.md
+	"go.useLanguageServer": true,
+	"[go]": {
+		"editor.formatOnSave": true,
+		"editor.codeActionsOnSave": {
+			"source.organizeImports": true,
+		},
+		"editor.snippetSuggestions": "none",
+	},
+	"[go.mod]": {
+		"editor.formatOnSave": true,
+		"editor.codeActionsOnSave": {
+			"source.organizeImports": true,
+		},
+	},
+	"gopls": {
+		"usePlaceholders": true,
+		"staticcheck": false,
+	},
+	//
+	// We like to make sure we don't make spelling mistakes.
+	// see: https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker
+	"cSpell.words": [
+		"Builtins",
+		"OAUTH",
+		"POSIX",
+		"commitlint",
+		"dartfmt",
+		"dexeca",
+		"dexecve",
+		"drun",
+		"execve",
+		"macos",
+		"mkdir",
+		"octokit",
+		"onwarn",
+		"pnpm",
+		"pnpx",
+		"pubspec",
+		"treeshake",
+		"tslib"
+	]
+}

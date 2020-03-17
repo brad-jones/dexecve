@@ -1,0 +1,10 @@
+useTabs: true
+tabWidth: 4
+semi: true
+trailingComma: es5
+printWidth: 80
+overrides:
+  - files: ["*.yaml", "*.yml"]
+    options:
+      tabWidth: 2
+      useTabs: false

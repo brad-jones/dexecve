@@ -1,0 +1,45 @@
+on: [push, pull_request]
+
+env:
+  CI: true
+
+jobs:
+  init:
+    if: "! contains(github.event.head_commit.message, '[skip ci]')"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./.github/actions/cancel-redundant
+        with:
+          token: ${{ secrets.CANCEL_GITHUB_TOKEN }}
+
+  release:
+    needs: init
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      PUB_OAUTH_ACCESS_TOKEN: ${{ secrets.PUB_OAUTH_ACCESS_TOKEN }}
+      PUB_OAUTH_REFRESH_TOKEN: ${{ secrets.PUB_OAUTH_REFRESH_TOKEN }}
+      PUB_OAUTH_EXPIRATION: ${{ secrets.PUB_OAUTH_EXPIRATION }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+      - run: npm add -g pnpm
+      - uses: ./.github/actions/setup-dart
+        with:
+          version: 2.7.1
+      - uses: actions/cache@v1
+        with:
+          path: ~/.pub-cache
+          key: ${{ runner.os }}-${{ hashFiles('**/pubspec.lock') }}
+          restore-keys: ${{ runner.os }}-
+      - run: pub get
+      - uses: actions/cache@v1
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: ${{ runner.os }}-
+      - run: pnpm install
+      - run: pnpx semantic-release

@@ -8,8 +8,7 @@ jobs:
     if: "! contains(github.event.head_commit.message, '[skip ci]')"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: ./.github/actions/cancel-redundant
+      - uses: brad-jones/actions/cancel-redundant@v1.0.0
         with:
           token: ${{ secrets.CANCEL_GITHUB_TOKEN }}
 
@@ -27,7 +26,7 @@ jobs:
         with:
           node-version: "12.x"
       - run: npm add -g pnpm
-      - uses: ./.github/actions/setup-dart
+      - uses: brad-jones/actions/setup-dart@v1.0.0
         with:
           version: 2.7.1
       - uses: actions/cache@v1

@@ -4,8 +4,28 @@ import 'package:ffi/ffi.dart';
 import 'package:dexecve/src/exec.dart';
 import 'package:dexecve/src/go_string.dart';
 
-void dexecve(String binary, List<String> args, List<String> env) {
+/// Replace the running process, with a POSIX execve system call.
+void dexecve(
+  String binary,
+  List<String> args, {
+  Map<String, String> environment,
+  bool inheritEnvironment = true,
+}) {
   if (Platform.isWindows) throw 'Windows does not support execve!';
+
+  var env = <String>[];
+  for (var k in environment.keys) {
+    env.add('${k}=${environment[k]}');
+  }
+
+  if (inheritEnvironment) {
+    for (var k in Platform.environment.keys) {
+      // specfically provided env vars will always override inherited env vars
+      if (environment.containsKey(k)) continue;
+      env.add('${k}=${environment[k]}');
+    }
+  }
+
   final goStr = GoString.fromString(jsonEncode({
     'bin': binary,
     'args': args,

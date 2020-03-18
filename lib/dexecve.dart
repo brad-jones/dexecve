@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'dart:convert';
-import 'package:ffi/ffi.dart';
 import 'package:dexecve/src/exec.dart';
 import 'package:dexecve/src/go_string.dart';
 

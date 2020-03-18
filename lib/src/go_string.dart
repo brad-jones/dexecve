@@ -11,9 +11,10 @@ class GoString extends Struct {
   @IntPtr()
   int length;
 
+  @override
   String toString() {
     var units = [];
-    for (int i = 0; i < length; ++i) {
+    for (var i = 0; i < length; ++i) {
       units.add(string.elementAt(i).value);
     }
     return Utf8Decoder().convert(units);
@@ -22,7 +23,7 @@ class GoString extends Struct {
   static Pointer<GoString> fromString(String string) {
     List<int> units = Utf8Encoder().convert(string);
     final ptr = allocate<Uint8>(count: units.length);
-    for (int i = 0; i < units.length; ++i) {
+    for (var i = 0; i < units.length; ++i) {
       ptr.elementAt(i).value = units[i];
     }
     final str = allocate<GoString>().ref;

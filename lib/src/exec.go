@@ -11,7 +11,7 @@ import (
 	"unsafe"
 )
 
-type ExecInput struct {
+type execInput struct {
 	Bin  string   `json:"bin"`
 	Args []string `json:"args"`
 	Env  []string `json:"env"`
@@ -19,7 +19,7 @@ type ExecInput struct {
 
 //export Exec
 func Exec(input *string) {
-	var parsedInput ExecInput
+	var parsedInput execInput
 	if err := json.Unmarshal([]byte(*input), &parsedInput); err != nil {
 		panic(err)
 	}

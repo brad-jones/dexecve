@@ -6,7 +6,7 @@ void main() {
   test('dexecve should replace the process', () async {
     var result = await dexeca(
       'dart',
-      [p.absolute('test', 'sut.dart')],
+      [p.absolute('example', 'main.dart')],
       inheritStdio: false,
     );
     expect(result.stdout, isNot(contains('I should never see this')));

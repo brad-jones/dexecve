@@ -100,6 +100,7 @@ Future<void> testLinuxGlibc([bool noBuild = false]) async {
     WORKDIR /app
     COPY ./pubspec.* ./
     RUN pub get
+    COPY ./example ./example/
     COPY ./lib ./lib/
     COPY ./test ./test/
   ''');

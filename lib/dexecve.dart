@@ -4,6 +4,22 @@ import 'package:dexecve/src/exec.dart';
 import 'package:dexecve/src/go_string.dart';
 
 /// Replace the running process, with a POSIX execve system call.
+/// Under the hood this calls golang's `syscall.Exec`
+///
+/// see: https://golang.org/pkg/syscall/#Exec
+///
+/// * [binary] This can be an absolute or relative path. Under the hood we use
+///   the golang `exec.LookPath` function to find the binary.
+///   see: https://golang.org/pkg/os/exec/#LookPath
+///
+/// * [args] The arguments to pass to the binary.
+///
+/// * [environment] Optionally you may pass a MAP that represents the
+///   environment variables the binary should see.
+///
+/// * [inheritEnvironment] By default the executed binary will also inherit the
+///   environment from the current process. You can disable this functionality
+///   if you wish.
 void dexecve(
   String binary,
   List<String> args, {
@@ -25,11 +41,16 @@ void dexecve(
     }
   }
 
+  // bit of hack, ffi in dart isn't terriable muture or expressive so we
+  // encode all input to the golang function as json and decode it inside
+  // the golang function.
   final goStr = GoString.fromString(jsonEncode({
     'bin': binary,
     'args': args,
     'env': env,
   }));
+
+  // execute the golang function
   exec(goStr);
 
   // can't execute this here

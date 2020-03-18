@@ -26,19 +26,19 @@
 	"[go]": {
 		"editor.formatOnSave": true,
 		"editor.codeActionsOnSave": {
-			"source.organizeImports": true,
+			"source.organizeImports": true
 		},
-		"editor.snippetSuggestions": "none",
+		"editor.snippetSuggestions": "none"
 	},
 	"[go.mod]": {
 		"editor.formatOnSave": true,
 		"editor.codeActionsOnSave": {
-			"source.organizeImports": true,
-		},
+			"source.organizeImports": true
+		}
 	},
 	"gopls": {
 		"usePlaceholders": true,
-		"staticcheck": false,
+		"staticcheck": false
 	},
 	//
 	// We like to make sure we don't make spelling mistakes.
@@ -47,12 +47,17 @@
 		"Builtins",
 		"OAUTH",
 		"POSIX",
+		"Println",
+		"buildmode",
 		"commitlint",
 		"dartfmt",
+		"dartlang",
 		"dexeca",
 		"dexecve",
 		"drun",
 		"execve",
+		"golang's",
+		"libhello",
 		"macos",
 		"mkdir",
 		"octokit",
@@ -60,6 +65,7 @@
 		"pnpm",
 		"pnpx",
 		"pubspec",
+		"syscall",
 		"treeshake",
 		"tslib"
 	]

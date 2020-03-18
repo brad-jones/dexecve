@@ -1,5 +1,6 @@
 package main
 
+// #include <stdlib.h>
 import "C"
 
 import (
@@ -7,6 +8,7 @@ import (
 	"os/exec"
 	"path/filepath"
 	"syscall"
+	"unsafe"
 )
 
 type ExecInput struct {
@@ -21,6 +23,8 @@ func Exec(input *string) {
 	if err := json.Unmarshal([]byte(*input), &parsedInput); err != nil {
 		panic(err)
 	}
+
+	C.free(unsafe.Pointer(input))
 
 	binary, lookErr := exec.LookPath(parsedInput.Bin)
 	if lookErr != nil {

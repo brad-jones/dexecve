@@ -32,5 +32,8 @@ void dexecve(
     'env': env,
   }));
   exec(goStr);
-  free(goStr);
+
+  // can't execute this here
+  // this is free`ed by the golang function
+  // free(goStr);
 }

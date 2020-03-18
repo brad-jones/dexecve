@@ -159,11 +159,14 @@ Future<void> releasePrepare(String nextVersion) async {
 /// * [accessToken] Get this from your local `credentials.json` file.
 ///
 /// * [refreshToken] Get this from your local `credentials.json` file.
+///
+/// * [oAuthExpiration] Get this from your local `credentials.json` file.
 Future<void> releasePublish(
   String nextVersion,
   bool dryRun, [
   @Env('PUB_OAUTH_ACCESS_TOKEN') String accessToken = '',
   @Env('PUB_OAUTH_REFRESH_TOKEN') String refreshToken = '',
+  @Env('PUB_OAUTH_EXPIRATION') int oAuthExpiration = 0,
 ]) async {
   String tmpDir;
   var gitIgnore = File(p.absolute('.gitignore'));
@@ -199,7 +202,7 @@ Future<void> releasePublish(
       'refreshToken': '${refreshToken}',
       'tokenEndpoint': 'https://accounts.google.com/o/oauth2/token',
       'scopes': ['openid', 'https://www.googleapis.com/auth/userinfo.email'],
-      'expiration': 1583826705770,
+      'expiration': oAuthExpiration,
     }));
 
     await dexeca('pub', ['publish', '--force'], runInShell: Platform.isWindows);

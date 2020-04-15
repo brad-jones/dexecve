@@ -96,7 +96,7 @@ Future<void> testLinuxGlibc([bool noBuild = false]) async {
     'dexecve/linux-glibc-test:latest',
   ]);
   build.stdin.write('''
-    FROM google/dart:2.7.1
+    FROM google/dart:${await _parseVersionFile('dart')}
     WORKDIR /app
     COPY ./pubspec.* ./
     RUN pub get

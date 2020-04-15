@@ -29,14 +29,14 @@ void dexecve(
   if (Platform.isWindows) throw 'Windows does not support execve!';
 
   var env = <String>[];
-  for (var k in environment.keys) {
+  for (var k in environment?.keys ?? []) {
     env.add('${k}=${environment[k]}');
   }
 
   if (inheritEnvironment) {
     for (var k in Platform.environment.keys) {
       // specfically provided env vars will always override inherited env vars
-      if (environment.containsKey(k)) continue;
+      if (environment?.containsKey(k) ?? false) continue;
       env.add('${k}=${environment[k]}');
     }
   }

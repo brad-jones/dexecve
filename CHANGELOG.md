@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/brad-jones/dexecve/compare/v1.2.0...v1.2.1) (2020-04-15)
+
+
+### Bug Fixes
+
+* **environment:** add values from the correct map ([6b11e4c](https://github.com/brad-jones/dexecve/commit/6b11e4c4eedc59182c0c68bc022337ce28bf492f))
+
 # [1.2.0](https://github.com/brad-jones/dexecve/compare/v1.1.0...v1.2.0) (2020-04-15)
 
 

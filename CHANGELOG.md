@@ -1,3 +1,15 @@
+# [1.2.0](https://github.com/brad-jones/dexecve/compare/v1.1.0...v1.2.0) (2020-04-15)
+
+
+### Bug Fixes
+
+* **environment:** added some additional null checks ([ad8407e](https://github.com/brad-jones/dexecve/commit/ad8407edb5aae88dac9a472124f3e78550ddf417))
+
+
+### Features
+
+* **windows:** fallback to a child process ([6ef8456](https://github.com/brad-jones/dexecve/commit/6ef84569a0bec83966e5309925f91b8759855f39))
+
 # [1.1.0](https://github.com/brad-jones/dexecve/compare/v1.0.0...v1.1.0) (2020-03-18)
 
 

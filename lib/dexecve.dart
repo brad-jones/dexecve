@@ -64,11 +64,11 @@ void dexecve(
     for (var k in Platform.environment.keys) {
       // specfically provided env vars will always override inherited env vars
       if (environment?.containsKey(k) ?? false) continue;
-      env.add('${k}=${environment[k]}');
+      env.add('${k}=${Platform.environment[k]}');
     }
   }
 
-  // bit of hack, ffi in dart isn't terriable muture or expressive so we
+  // bit of hack, ffi in dart isn't terribly muture or expressive so we
   // encode all input to the golang function as json and decode it inside
   // the golang function.
   final goStr = GoString.fromString(jsonEncode({

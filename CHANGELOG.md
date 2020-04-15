@@ -1,3 +1,10 @@
+## [1.2.2](https://github.com/brad-jones/dexecve/compare/v1.2.1...v1.2.2) (2020-04-15)
+
+
+### Bug Fixes
+
+* **windows:** use ProcessStartMode.inheritStdio ([ec00665](https://github.com/brad-jones/dexecve/commit/ec006658dcbe2388e3bd595e4524619d906d78a4))
+
 ## [1.2.1](https://github.com/brad-jones/dexecve/compare/v1.2.0...v1.2.1) (2020-04-15)
 
 

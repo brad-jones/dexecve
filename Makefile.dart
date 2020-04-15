@@ -75,6 +75,7 @@ Future<void> test([bool noBuild = false]) async {
   await Future.wait([
     testLinuxGlibc(noBuild),
     testMacos(noBuild),
+    testWindows(),
   ]);
 }
 
@@ -126,6 +127,14 @@ Future<void> testMacos([bool noBuild = false]) async {
     await buildMacos();
   }
 
+  // TODO: work out what to do here???
+}
+
+/// Executes the test suite for the Windows target
+///
+/// * [noBuild] By default the build is performed before running the test,
+///   unless this flag is provided.
+Future<void> testWindows() async {
   // TODO: work out what to do here???
 }
 

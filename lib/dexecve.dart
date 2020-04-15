@@ -1,5 +1,8 @@
-import 'dart:io';
+import 'dart:async';
+import 'dart:cli';
 import 'dart:convert';
+import 'dart:io';
+import 'package:dexeca/dexeca.dart';
 import 'package:dexecve/src/exec.dart';
 import 'package:dexecve/src/go_string.dart';
 
@@ -20,13 +23,37 @@ import 'package:dexecve/src/go_string.dart';
 /// * [inheritEnvironment] By default the executed binary will also inherit the
 ///   environment from the current process. You can disable this functionality
 ///   if you wish.
+///
+/// > NOTE: On Windows this will fall back to starting a child process
+/// >       and proxying all it's STDIO.
 void dexecve(
   String binary,
   List<String> args, {
   Map<String, String> environment,
   bool inheritEnvironment = true,
 }) {
-  if (Platform.isWindows) throw 'Windows does not support execve!';
+  if (Platform.isWindows) {
+    var proc = dexeca(
+      binary,
+      args,
+      inheritStdio: true,
+      captureOutput: false,
+      environment: environment,
+      includeParentEnvironment: inheritEnvironment,
+    );
+    waitFor(proc.stdin.addStream(stdin));
+    waitFor(proc.stdin.close());
+    try {
+      waitFor(proc);
+    } on AsyncError catch (e) {
+      var err = e.error;
+      if (err is ProcessResult) {
+        exit(err.exitCode);
+      }
+      rethrow;
+    }
+    exit(0);
+  }
 
   var env = <String>[];
   for (var k in environment?.keys ?? []) {

@@ -86,7 +86,7 @@ packages:
     source: hosted
     version: "0.16.1"
   dexeca:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: dexeca
       url: "https://pub.dartlang.org"

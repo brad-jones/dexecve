@@ -36,13 +36,12 @@ void dexecve(
     var proc = dexeca(
       binary,
       args,
-      inheritStdio: true,
+      inheritStdio: false,
       captureOutput: false,
       environment: environment,
       includeParentEnvironment: inheritEnvironment,
+      mode: ProcessStartMode.inheritStdio,
     );
-    waitFor(proc.stdin.addStream(stdin));
-    waitFor(proc.stdin.close());
     try {
       waitFor(proc);
     } on AsyncError catch (e) {

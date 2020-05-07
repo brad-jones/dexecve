@@ -230,14 +230,13 @@ String _homeDir() {
   return Platform.environment['HOME'];
 }
 
-Future<void> _searchReplaceFile(File file, String from, String to) async {
+Future<void> _searchReplaceVersion(File file, String nextVersion) async {
   var src = await file.readAsString();
-  var newSrc = src.replaceAll(from, to);
+  var newSrc = src.replaceAll(
+    RegExp(r'version: ".*"'),
+    'version: "${nextVersion}"',
+  );
   await file.writeAsString(newSrc);
-}
-
-Future<void> _searchReplaceVersion(File file, String nextVersion) {
-  return _searchReplaceFile(file, '0.0.0-semantically-released', nextVersion);
 }
 
 var toolVersions = <String, String>{};

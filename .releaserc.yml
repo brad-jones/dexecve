@@ -14,7 +14,9 @@ plugins:
 
   # Commit CHANGELOG.md back to repo
   - - "@semantic-release/git"
-    - assets: [CHANGELOG.md]
+    - assets:
+        - CHANGELOG.md
+        - pubspec.yaml
       message: "chore(release): update changelog [skip ci]"
 
   # Create new github release

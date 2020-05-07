@@ -5,7 +5,6 @@ import "C"
 
 import (
 	"encoding/json"
-	"os/exec"
 	"path/filepath"
 	"syscall"
 	"unsafe"
@@ -26,14 +25,9 @@ func Exec(input *string) {
 
 	C.free(unsafe.Pointer(input))
 
-	binary, lookErr := exec.LookPath(parsedInput.Bin)
-	if lookErr != nil {
-		panic(lookErr)
-	}
+	args := append([]string{filepath.Base(parsedInput.Bin)}, parsedInput.Args...)
 
-	args := append([]string{filepath.Base(binary)}, parsedInput.Args...)
-
-	if err := syscall.Exec(binary, args, parsedInput.Env); err != nil {
+	if err := syscall.Exec(parsedInput.Bin, args, parsedInput.Env); err != nil {
 		panic(err)
 	}
 }

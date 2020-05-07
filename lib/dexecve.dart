@@ -1,8 +1,9 @@
-import 'dart:async';
-import 'dart:cli';
-import 'dart:convert';
 import 'dart:io';
+import 'dart:cli';
+import 'dart:async';
+import 'dart:convert';
 import 'package:dexeca/dexeca.dart';
+import 'package:dexeca/look_path.dart';
 import 'package:dexecve/src/exec.dart';
 import 'package:dexecve/src/go_string.dart';
 
@@ -24,6 +25,10 @@ import 'package:dexecve/src/go_string.dart';
 ///   environment from the current process. You can disable this functionality
 ///   if you wish.
 ///
+/// * [winHashBang] By default we use some functionality from the `dexeca`
+///   project that enables the use of _"hashbangs"_ on Windows, to get a
+///   stricter experience set this to false.
+///
 /// > NOTE: On Windows this will fall back to starting a child process
 /// >       and proxying all it's STDIO.
 void dexecve(
@@ -31,6 +36,7 @@ void dexecve(
   List<String> args, {
   Map<String, String> environment,
   bool inheritEnvironment = true,
+  bool winHashBang = true,
 }) {
   if (Platform.isWindows) {
     var proc = dexeca(
@@ -41,6 +47,7 @@ void dexecve(
       environment: environment,
       includeParentEnvironment: inheritEnvironment,
       mode: ProcessStartMode.inheritStdio,
+      winHashBang: winHashBang,
     );
     try {
       waitFor(proc);
@@ -65,6 +72,15 @@ void dexecve(
       if (environment?.containsKey(k) ?? false) continue;
       env.add('${k}=${Platform.environment[k]}');
     }
+  }
+
+  // find the absolute path to the executable
+  var executable = lookPath(binary, winHashBang: winHashBang);
+  if (executable.runner?.isNotEmpty ?? false) {
+    args.insert(0, executable.file);
+    binary = executable.runner;
+  } else {
+    binary = executable.file;
   }
 
   // bit of hack, ffi in dart isn't terribly muture or expressive so we

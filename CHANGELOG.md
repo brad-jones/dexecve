@@ -1,3 +1,15 @@
+# [1.3.0](https://github.com/brad-jones/dexecve/compare/v1.2.2...v1.3.0) (2020-05-07)
+
+
+### Bug Fixes
+
+* **pubspec:** circular dependency of drun ([c2f10a6](https://github.com/brad-jones/dexecve/commit/c2f10a697b10fe4eb727b6b02a9009c894a69b53))
+
+
+### Features
+
+* **lookpath:** allow the execution of hashbangs on windows ([14f2e97](https://github.com/brad-jones/dexecve/commit/14f2e97d7fc30a4b74054e1565a667a467ce7663))
+
 ## [1.2.2](https://github.com/brad-jones/dexecve/compare/v1.2.1...v1.2.2) (2020-04-15)
 
 
